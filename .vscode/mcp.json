@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "packet-tracer": {
+      "command": "python",
+      "args": ["-m", "src.packet_tracer_mcp"],
+      "cwd": "."
+    }
+  }
+}
