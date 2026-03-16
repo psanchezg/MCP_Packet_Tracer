@@ -4,8 +4,9 @@ via the HTTP bridge (PTBuilder webview polling).
 """
 
 from __future__ import annotations
-import json
+
 import time
+
 from ...domain.models.plans import TopologyPlan
 from ..generator.ptbuilder_generator import generate_executable_script
 

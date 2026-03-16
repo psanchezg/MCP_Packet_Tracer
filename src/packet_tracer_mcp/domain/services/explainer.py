@@ -6,6 +6,7 @@ por qué se tomó cada decisión.
 """
 
 from __future__ import annotations
+
 from ..models.plans import TopologyPlan
 
 
@@ -23,7 +24,7 @@ def explain_plan(plan: TopologyPlan) -> list[str]:
     explanations.append(
         f"Topología con {len(routers)} router(s), {len(switches)} switch(es), "
         f"{len(pcs)} PC(s), {len(servers)} servidor(es)"
-        + (f" y conexión WAN" if clouds else "") + "."
+        + (" y conexión WAN" if clouds else "") + "."
     )
 
     # Subnetting
@@ -44,8 +45,8 @@ def explain_plan(plan: TopologyPlan) -> list[str]:
         )
     if link_subnets:
         explanations.append(
-            f"Los enlaces entre routers usan subredes /30 (punto a punto) — "
-            f"ahorra direcciones IP usando solo 2 hosts por enlace."
+            "Los enlaces entre routers usan subredes /30 (punto a punto) — "
+            "ahorra direcciones IP usando solo 2 hosts por enlace."
         )
 
     # Cables

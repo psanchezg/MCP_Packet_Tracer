@@ -1,6 +1,7 @@
 """Use case: corregir plan automáticamente."""
 
 from __future__ import annotations
+
 from ...domain.models.plans import TopologyPlan
 from ...domain.services.auto_fixer import fix_plan
 from ..dto.responses import FixResponse

@@ -1,0 +1,8 @@
+access-list {{ acl_number }} permit {{ source_network }} {{ source_wildcard }}
+interface {{ inside_interface }}
+ ip nat inside
+ exit
+interface {{ outside_interface }}
+ ip nat outside
+ exit
+ip nat inside source list {{ acl_number }} interface {{ outside_interface }} overload

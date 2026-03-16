@@ -1,0 +1,12 @@
+{% for vlan in vlans %}vlan {{ vlan.id }}
+ name {{ vlan.name }}
+{% endfor %}{% for iface in trunk_interfaces %}interface {{ iface }}
+ switchport mode trunk
+ switchport trunk allowed vlan {% for v in vlans %}{{ v.id }}{% if not loop.last %},{% endif %}{% endfor %}
+
+ no shutdown
+{% endfor %}{% for port in access_ports %}interface {{ port.interface }}
+ switchport mode access
+ switchport access vlan {{ port.vlan_id }}
+ no shutdown
+{% endfor %}

@@ -1,8 +1,8 @@
 """DTOs de entrada para la capa de aplicación."""
 
 from __future__ import annotations
+
 from pydantic import BaseModel, Field
-from ...shared.enums import RoutingProtocol, TopologyTemplate
 
 
 class PlanTopologyDTO(BaseModel):

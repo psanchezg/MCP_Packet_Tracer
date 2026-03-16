@@ -1,6 +1,7 @@
 """Modelos de plan — el resultado validado y completo."""
 
 from __future__ import annotations
+
 from pydantic import BaseModel, Field
 
 from ...shared.enums import DeviceRole

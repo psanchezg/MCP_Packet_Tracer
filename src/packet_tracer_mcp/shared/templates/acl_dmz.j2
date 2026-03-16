@@ -1,0 +1,8 @@
+ip access-list extended {{ acl_name }}
+{% for rule in rules %} {{ rule.action }} {{ rule.protocol }}{% if rule.source %} {{ rule.source }}{% if rule.source_wildcard %} {{ rule.source_wildcard }}{% endif %}{% endif %}{% if rule.destination %} {{ rule.destination }}{% if rule.destination_wildcard %} {{ rule.destination_wildcard }}{% endif %}{% endif %}{% if rule.port %} eq {{ rule.port }}{% endif %}
+
+{% endfor %} deny ip any any
+ exit
+interface {{ interface }}
+ ip access-group {{ acl_name }} {{ direction }}
+ exit

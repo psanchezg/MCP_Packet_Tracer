@@ -11,11 +11,11 @@ Usage:
 """
 
 import http.server
+import json
 import threading
 import time
-import json
 from http.server import ThreadingHTTPServer
-from queue import Queue, Empty
+from queue import Empty, Queue
 
 
 class PTCommandBridge:
@@ -200,7 +200,16 @@ def generate_topology_js(
     if configs:
         for cfg in configs:
             name = json.dumps(cfg["name"])
-            cmds = json.dumps(cfg["commands"])
-            lines.append(f"configureIosDevice({name}, {cmds});")
+            cmds = cfg["commands"]
+            # Accept both string (legacy) and list formats
+            if isinstance(cmds, str):
+                cmds = [
+                    ln for ln in cmds.splitlines()
+                    if ln.strip() and ln.strip() not in {
+                        "enable", "configure terminal",
+                        "end", "write memory",
+                    }
+                ]
+            lines.append(f"configureDevice({name}, {json.dumps(cmds)});")
 
     return "\n".join(lines)

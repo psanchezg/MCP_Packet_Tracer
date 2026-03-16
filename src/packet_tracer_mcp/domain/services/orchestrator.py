@@ -7,21 +7,28 @@ con dispositivos, enlaces, IPs, DHCP y rutas, todo validado.
 
 from __future__ import annotations
 
-from ..models.requests import TopologyRequest
-from ..models.plans import TopologyPlan, DevicePlan, LinkPlan, ValidationCheck
+from ...infrastructure.catalog.cables import infer_cable
+from ...infrastructure.catalog.devices import (
+    get_ports_by_speed,
+    resolve_model,
+)
+from ...shared.constants import (
+    DEFAULT_ROUTER,
+    DEFAULT_SWITCH,
+    LAYOUT_CLOUD_X_OFFSET,
+    LAYOUT_PC_X_SPACING,
+    LAYOUT_X_SPACING,
+    LAYOUT_X_START,
+    LAYOUT_Y_PC,
+    LAYOUT_Y_ROUTER,
+    LAYOUT_Y_SWITCH,
+)
+from ...shared.enums import DeviceRole, PortSpeed
 from ..models.errors import ValidationResult
+from ..models.plans import DevicePlan, LinkPlan, TopologyPlan, ValidationCheck
+from ..models.requests import TopologyRequest
 from .ip_planner import IPPlanner
 from .validator import validate_plan
-from ...infrastructure.catalog.devices import (
-    resolve_model, get_ports_by_speed,
-)
-from ...infrastructure.catalog.cables import infer_cable
-from ...shared.enums import PortSpeed, DeviceRole
-from ...shared.constants import (
-    DEFAULT_ROUTER, DEFAULT_SWITCH,
-    LAYOUT_X_START, LAYOUT_Y_ROUTER, LAYOUT_Y_SWITCH, LAYOUT_Y_PC,
-    LAYOUT_X_SPACING, LAYOUT_PC_X_SPACING, LAYOUT_CLOUD_X_OFFSET,
-)
 
 
 def plan_from_request(request: TopologyRequest) -> tuple[TopologyPlan, ValidationResult]:
@@ -111,12 +118,12 @@ def _create_devices(plan: TopologyPlan, req: TopologyRequest, pcs_list: list[int
                         y=LAYOUT_Y_PC,
                     ))
                 n_laptops = laptops_list[i]
-                for l in range(n_laptops):
+                for lap_idx in range(n_laptops):
                     laptop_idx += 1
                     plan.devices.append(DevicePlan(
                         name=f"LT{laptop_idx}", model="Laptop-PT", category="laptop",
                         role=DeviceRole.END_HOST,
-                        x=LAYOUT_X_START + i * LAYOUT_X_SPACING - (n_laptops * LAYOUT_PC_X_SPACING // 2) + l * LAYOUT_PC_X_SPACING,
+                        x=LAYOUT_X_START + i * LAYOUT_X_SPACING - (n_laptops * LAYOUT_PC_X_SPACING // 2) + lap_idx * LAYOUT_PC_X_SPACING,
                         y=LAYOUT_Y_PC + 80,
                     ))
 

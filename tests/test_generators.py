@@ -6,6 +6,7 @@ from src.packet_tracer_mcp.domain.models.plans import (
 )
 from src.packet_tracer_mcp.infrastructure.generator.ptbuilder_generator import (
     generate_ptbuilder_script,
+    generate_executable_script,
 )
 from src.packet_tracer_mcp.infrastructure.generator.cli_config_generator import (
     generate_all_configs,
@@ -39,6 +40,35 @@ class TestPTBuilderGenerator:
         script = generate_ptbuilder_script(plan)
         assert 'addLink("R1"' in script
         assert '"straight"' in script
+
+    def test_generate_executable_uses_runtime_supported_calls(self):
+        plan = TopologyPlan(
+            name="test",
+            devices=[
+                DevicePlan(
+                    name="R1",
+                    model="2911",
+                    category="router",
+                    x=100,
+                    y=100,
+                    interfaces={"GigabitEthernet0/0": "192.168.0.1/24"},
+                ),
+                DevicePlan(
+                    name="PC1",
+                    model="PC-PT",
+                    category="pc",
+                    x=200,
+                    y=200,
+                    interfaces={"FastEthernet0": "192.168.0.2/24"},
+                    gateway="192.168.0.1",
+                ),
+            ],
+            links=[],
+        )
+        script = generate_executable_script(plan)
+        assert 'configureIosDevice("R1"' in script
+        assert 'configurePcIp("PC1", false' in script
+        assert "configureDevice(" not in script
 
 
 class TestCLIConfigGenerator:

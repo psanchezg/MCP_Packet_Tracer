@@ -1,7 +1,9 @@
 """Utilidades compartidas."""
 
 from __future__ import annotations
+
 import ipaddress
+
 from .constants import PREFIX_TO_MASK
 
 

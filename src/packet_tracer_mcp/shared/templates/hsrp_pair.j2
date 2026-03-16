@@ -1,0 +1,6 @@
+interface {{ interface }}
+ standby {{ group }} ip {{ virtual_ip }}
+ standby {{ group }} priority {{ priority }}
+{% if preempt %} standby {{ group }} preempt
+{% endif %}{% if track_interface %} standby {{ group }} track {{ track_interface }} decrement 10
+{% endif %} exit

@@ -1,13 +1,16 @@
 """Modelos de request — lo que entra del LLM."""
 
 from __future__ import annotations
+
 from pydantic import BaseModel, Field
 
-from ...shared.enums import RoutingProtocol, TopologyTemplate
 from ...shared.constants import (
-    DEFAULT_ROUTER, DEFAULT_SWITCH,
-    DEFAULT_LAN_BASE, DEFAULT_LINK_BASE,
+    DEFAULT_LAN_BASE,
+    DEFAULT_LINK_BASE,
+    DEFAULT_ROUTER,
+    DEFAULT_SWITCH,
 )
+from ...shared.enums import RoutingProtocol, TopologyTemplate
 
 
 class TopologyRequest(BaseModel):

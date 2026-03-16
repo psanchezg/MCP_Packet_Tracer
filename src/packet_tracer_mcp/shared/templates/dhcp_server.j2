@@ -1,0 +1,9 @@
+{% for pool in pools %}{% if pool.excluded_start %}ip dhcp excluded-address {{ pool.excluded_start }}{% if pool.excluded_end %} {{ pool.excluded_end }}{% endif %}
+
+{% endif %}ip dhcp pool {{ pool.name }}
+ network {{ pool.network }} {{ pool.mask }}
+ default-router {{ pool.gateway }}
+{% if pool.dns %} dns-server {{ pool.dns }}
+{% endif %}{% if pool.lease_days %} lease {{ pool.lease_days }}
+{% endif %} exit
+{% endfor %}

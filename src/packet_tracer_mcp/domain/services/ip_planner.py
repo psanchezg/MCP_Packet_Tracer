@@ -6,16 +6,22 @@ genera pools DHCP, rutas estáticas y configuraciones OSPF.
 """
 
 from __future__ import annotations
+
 import ipaddress
 from collections import deque
 
-from ..models.plans import (
-    TopologyPlan, DevicePlan, DHCPPool, StaticRoute, OSPFConfig,
-    RIPConfig, EIGRPConfig,
-)
-from ...shared.enums import RoutingProtocol
-from ...shared.utils import wildcard_mask, first_ip
 from ...shared.constants import DEFAULT_DNS
+from ...shared.enums import RoutingProtocol
+from ...shared.utils import first_ip, wildcard_mask
+from ..models.plans import (
+    DevicePlan,
+    DHCPPool,
+    EIGRPConfig,
+    OSPFConfig,
+    RIPConfig,
+    StaticRoute,
+    TopologyPlan,
+)
 
 
 class IPPlanner:
@@ -70,8 +76,8 @@ class IPPlanner:
             elif dev_a.category == "router" and dev_b.category == "router":
                 subnet = self.next_link_subnet()
                 hosts = list(subnet.hosts())
-                dev_a.interfaces[link.port_a] = f"{str(hosts[0])}/{subnet.prefixlen}"
-                dev_b.interfaces[link.port_b] = f"{str(hosts[1])}/{subnet.prefixlen}"
+                dev_a.interfaces[link.port_a] = f"{hosts[0]!s}/{subnet.prefixlen}"
+                dev_b.interfaces[link.port_b] = f"{hosts[1]!s}/{subnet.prefixlen}"
                 key = tuple(sorted([dev_a.name, dev_b.name]))
                 link_subnets[key] = subnet
 
@@ -80,7 +86,7 @@ class IPPlanner:
                 r_port = link.port_a if dev_a.category == "router" else link.port_b
                 subnet = self.next_link_subnet()
                 hosts = list(subnet.hosts())
-                router.interfaces[r_port] = f"{str(hosts[0])}/{subnet.prefixlen}"
+                router.interfaces[r_port] = f"{hosts[0]!s}/{subnet.prefixlen}"
 
         # DHCP pools
         if dhcp:
@@ -133,7 +139,7 @@ class IPPlanner:
                 end_dev, end_port = dev_a, link.port_a
 
             if end_dev and host_idx < len(hosts):
-                end_dev.interfaces[end_port] = f"{str(hosts[host_idx])}/{subnet.prefixlen}"
+                end_dev.interfaces[end_port] = f"{hosts[host_idx]!s}/{subnet.prefixlen}"
                 end_dev.gateway = gateway_ip
                 host_idx += 1
 

@@ -1,10 +1,11 @@
 """Use case: generar script PTBuilder."""
 
 from __future__ import annotations
+
 from ...domain.models.plans import TopologyPlan
 from ...infrastructure.generator.ptbuilder_generator import (
-    generate_ptbuilder_script,
     generate_full_script,
+    generate_ptbuilder_script,
 )
 
 

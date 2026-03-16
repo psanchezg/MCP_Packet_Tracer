@@ -3,12 +3,14 @@ Ejecutor manual: exporta archivos para que el usuario los copie/pegue.
 """
 
 from __future__ import annotations
+
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+
 from ...domain.models.plans import TopologyPlan
-from ..generator.ptbuilder_generator import generate_ptbuilder_script, generate_full_script
 from ..generator.cli_config_generator import generate_all_configs
+from ..generator.ptbuilder_generator import generate_full_script, generate_ptbuilder_script
 from .executor_base import ExecutorBase
 
 
@@ -55,7 +57,7 @@ class ManualExecutor(ExecutorBase):
         meta_path = project_dir / "metadata.json"
         metadata = {
             "project_name": safe_name,
-            "created_at": datetime.now(timezone.utc).isoformat(),
+            "created_at": datetime.now(UTC).isoformat(),
             "devices": len(plan.devices),
             "links": len(plan.links),
             "is_valid": plan.is_valid,

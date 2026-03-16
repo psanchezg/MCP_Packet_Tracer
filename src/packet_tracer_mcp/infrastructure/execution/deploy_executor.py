@@ -10,8 +10,8 @@ import sys
 from pathlib import Path
 
 from ...domain.models.plans import TopologyPlan
-from ..generator.ptbuilder_generator import generate_ptbuilder_script, generate_full_script
 from ..generator.cli_config_generator import generate_all_configs
+from ..generator.ptbuilder_generator import generate_full_script, generate_ptbuilder_script
 from .executor_base import ExecutorBase
 
 
@@ -121,7 +121,7 @@ class DeployExecutor(ExecutorBase):
             steps.append("  3. Pega el script (Ctrl+V)")
             steps.append("  4. Haz clic en 'Run' o presiona el boton de ejecutar")
             steps.append("")
-            steps.append(f"Los dispositivos y enlaces se crearan automaticamente.")
+            steps.append("Los dispositivos y enlaces se crearan automaticamente.")
         else:
             steps.append(f"Abre el archivo: {project_dir / 'topology.js'}")
             steps.append("Copia su contenido y pegalo en Packet Tracer:")
@@ -139,14 +139,14 @@ class DeployExecutor(ExecutorBase):
 
             for router in routers:
                 if router.name in configs:
-                    steps.append(f"")
+                    steps.append("")
                     steps.append(f"  {router.name}:")
                     steps.append(f"    - Doble clic en {router.name} > pestaña CLI")
                     steps.append(f"    - Pega el contenido de: {project_dir / f'{router.name}_config.txt'}")
 
             for switch in switches:
                 if switch.name in configs:
-                    steps.append(f"")
+                    steps.append("")
                     steps.append(f"  {switch.name}:")
                     steps.append(f"    - Doble clic en {switch.name} > pestaña CLI")
                     steps.append(f"    - Pega el contenido de: {project_dir / f'{switch.name}_config.txt'}")

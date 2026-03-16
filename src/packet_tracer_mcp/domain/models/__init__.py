@@ -1,8 +1,13 @@
 """Domain models."""
 
-from .requests import TopologyRequest
+from .errors import ErrorCode, PlanError, ValidationResult
 from .plans import (
-    TopologyPlan, DevicePlan, LinkPlan,
-    DHCPPool, StaticRoute, OSPFConfig, ValidationCheck,
+    DevicePlan,
+    DHCPPool,
+    LinkPlan,
+    OSPFConfig,
+    StaticRoute,
+    TopologyPlan,
+    ValidationCheck,
 )
-from .errors import PlanError, ValidationResult, ErrorCode
+from .requests import TopologyRequest

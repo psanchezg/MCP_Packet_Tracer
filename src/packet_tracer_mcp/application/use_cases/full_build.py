@@ -3,13 +3,14 @@ Use case: full build — planifica, valida, genera y explica en un solo paso.
 """
 
 from __future__ import annotations
+
+from ...domain.services.estimator import estimate_from_plan
+from ...domain.services.explainer import explain_plan
+from ...infrastructure.generator.cli_config_generator import generate_all_configs
+from ...infrastructure.generator.ptbuilder_generator import generate_full_script
 from ..dto.requests import PlanTopologyDTO
 from ..dto.responses import BuildResponse
 from .plan_topology import plan_topology
-from ...infrastructure.generator.ptbuilder_generator import generate_full_script
-from ...infrastructure.generator.cli_config_generator import generate_all_configs
-from ...domain.services.explainer import explain_plan
-from ...domain.services.estimator import estimate_from_plan
 
 
 def full_build(dto: PlanTopologyDTO) -> BuildResponse:

@@ -3,7 +3,9 @@ Base abstracta para ejecutores de topologías.
 """
 
 from __future__ import annotations
+
 from abc import ABC, abstractmethod
+
 from ...domain.models.plans import TopologyPlan
 
 

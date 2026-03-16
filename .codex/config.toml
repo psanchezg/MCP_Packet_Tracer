@@ -1,0 +1,4 @@
+[mcp_servers.packet-tracer]
+type = "stdio"
+command = "python"
+args = ["-m", "src.packet_tracer_mcp", "--stdio"]

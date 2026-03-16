@@ -6,8 +6,10 @@ que el orquestador usa para generar planes.
 """
 
 from __future__ import annotations
-from dataclasses import dataclass, field
-from ...shared.enums import TopologyTemplate, RoutingProtocol
+
+from dataclasses import dataclass
+
+from ...shared.enums import RoutingProtocol, TopologyTemplate
 
 
 @dataclass(frozen=True)

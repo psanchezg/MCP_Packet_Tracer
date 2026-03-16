@@ -1,10 +1,11 @@
 """Reglas de validación de cables y enlaces."""
 
 from __future__ import annotations
-from ..models.plans import TopologyPlan
-from ..models.errors import PlanError, ErrorCode
-from ...infrastructure.catalog.devices import resolve_model, get_valid_ports
+
 from ...infrastructure.catalog.cables import CABLE_TYPES, infer_cable
+from ...infrastructure.catalog.devices import get_valid_ports
+from ..models.errors import ErrorCode, PlanError
+from ..models.plans import TopologyPlan
 
 
 def validate_links(plan: TopologyPlan) -> tuple[list[PlanError], list[PlanError]]:

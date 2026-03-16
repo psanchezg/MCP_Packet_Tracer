@@ -1,9 +1,11 @@
 """Reglas de validación de IPs."""
 
 from __future__ import annotations
+
 import ipaddress
+
+from ..models.errors import ErrorCode, PlanError
 from ..models.plans import TopologyPlan
-from ..models.errors import PlanError, ErrorCode
 
 
 def validate_ips(plan: TopologyPlan) -> list[PlanError]:

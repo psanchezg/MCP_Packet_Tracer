@@ -1,0 +1,7 @@
+router eigrp {{ name }}
+ address-family {{ af }} autonomous-system {{ as_number }}
+{% if router_id %}  eigrp router-id {{ router_id }}
+{% endif %}{% for net in networks %}  network {{ net.network }} {{ net.wildcard }}
+{% endfor %}  no auto-summary
+  exit-address-family
+ exit

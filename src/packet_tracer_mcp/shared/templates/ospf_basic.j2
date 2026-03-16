@@ -1,0 +1,5 @@
+router ospf {{ process_id }}
+{% if router_id %} router-id {{ router_id }}
+{% endif %}{% for net in networks %} network {{ net.network }} {{ net.wildcard }} area {{ net.area }}
+{% endfor %}{% for iface in passive_interfaces %} passive-interface {{ iface }}
+{% endfor %} exit

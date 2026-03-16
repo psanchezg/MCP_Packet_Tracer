@@ -1,12 +1,12 @@
 """Use case: planificar topología."""
 
 from __future__ import annotations
-from ...domain.models.requests import TopologyRequest
-from ...domain.models.plans import TopologyPlan
+
 from ...domain.models.errors import ValidationResult
+from ...domain.models.plans import TopologyPlan
+from ...domain.models.requests import TopologyRequest
 from ...domain.services.orchestrator import plan_from_request
 from ...shared.enums import RoutingProtocol, TopologyTemplate
-from ...shared.constants import DEFAULT_LAN_BASE, DEFAULT_LINK_BASE
 from ..dto.requests import PlanTopologyDTO
 
 

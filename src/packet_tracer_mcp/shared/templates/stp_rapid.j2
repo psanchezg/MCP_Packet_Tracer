@@ -1,0 +1,7 @@
+spanning-tree mode {{ mode }}
+{% if root_vlan %}spanning-tree vlan {{ root_vlan }} root primary
+{% endif %}{% if root_priority %}spanning-tree vlan {{ root_vlan }} priority {{ root_priority }}
+{% endif %}{% for iface in portfast_interfaces %}interface {{ iface }}
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+{% endfor %}

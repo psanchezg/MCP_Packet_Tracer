@@ -5,14 +5,17 @@ Define recursos estáticos que el LLM puede consultar.
 """
 
 from __future__ import annotations
+
 import json
+
 from mcp.server.fastmcp import FastMCP
 
-from ...infrastructure.catalog.devices import ALL_MODELS
-from ...infrastructure.catalog.cables import CABLE_TYPES
 from ...infrastructure.catalog.aliases import MODEL_ALIASES
+from ...infrastructure.catalog.cables import CABLE_TYPES
+from ...infrastructure.catalog.devices import ALL_MODELS
 from ...infrastructure.catalog.templates import list_templates
 from ...shared.constants import CAPABILITIES
+from ...shared.prompts import PTBUILDER_GUIDE
 
 
 def register_resources(mcp: FastMCP) -> None:
@@ -60,3 +63,13 @@ def register_resources(mcp: FastMCP) -> None:
     def resource_capabilities() -> str:
         """Capacidades y versión del servidor MCP."""
         return json.dumps(CAPABILITIES, indent=2, ensure_ascii=False)
+
+    @mcp.resource("pt://prompts/ptbuilder-guide")
+    def resource_ptbuilder_guide() -> str:
+        """Comprehensive guide for generating PTBuilder JavaScript code.
+
+        Covers input parsing, device selection, IP addressing, service
+        configuration, layout engine, port assignment, and self-check.
+        LLM clients should read this before generating PT scripts.
+        """
+        return PTBUILDER_GUIDE

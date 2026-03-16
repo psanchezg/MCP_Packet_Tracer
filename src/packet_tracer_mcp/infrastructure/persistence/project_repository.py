@@ -3,9 +3,11 @@ Repositorio de proyectos: persistencia de planes y artefactos.
 """
 
 from __future__ import annotations
+
 import json
+from datetime import UTC, datetime
 from pathlib import Path
-from datetime import datetime, timezone
+
 from ...domain.models.plans import TopologyPlan
 
 
@@ -30,7 +32,7 @@ class ProjectRepository:
         meta_path = project_dir / "metadata.json"
         meta = {
             "project_name": name,
-            "created_at": datetime.now(timezone.utc).isoformat(),
+            "created_at": datetime.now(UTC).isoformat(),
             "devices": len(plan.devices),
             "links": len(plan.links),
             "is_valid": plan.is_valid,

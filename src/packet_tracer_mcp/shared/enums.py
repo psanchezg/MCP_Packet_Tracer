@@ -58,3 +58,4 @@ class PortSpeed(str, Enum):
     GIGABIT_ETHERNET = "GigabitEthernet"
     SERIAL = "Serial"
     CONSOLE = "Console"
+    COAXIAL = "Coaxial"

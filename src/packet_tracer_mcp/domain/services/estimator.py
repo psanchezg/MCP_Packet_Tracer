@@ -6,8 +6,9 @@ de generar scripts.
 """
 
 from __future__ import annotations
-from ..models.requests import TopologyRequest
+
 from ..models.plans import TopologyPlan
+from ..models.requests import TopologyRequest
 
 
 def estimate_from_request(request: TopologyRequest) -> dict:
@@ -84,7 +85,7 @@ def estimate_from_plan(plan: TopologyPlan) -> dict:
 
 def _estimate_complexity(req: TopologyRequest) -> str:
     score = req.routers * 3 + (
-        (sum(req.pcs_per_lan) if isinstance(req.pcs_per_lan, list) else req.pcs_per_lan * req.routers)
+        sum(req.pcs_per_lan) if isinstance(req.pcs_per_lan, list) else req.pcs_per_lan * req.routers
     ) + req.servers * 2
     if req.has_wan:
         score += 5
