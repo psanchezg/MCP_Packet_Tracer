@@ -474,3 +474,5 @@ Usuario:  "Creame una red con 2 routers, 2 switches, 4 PCs, DHCP y static routin
 
 → pt_live_deploy envía todo a Packet Tracer y aparecen los dispositivos configurados
 ```
+#   M C P _ P a c k e t _ T r a c e r  
+ 
