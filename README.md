@@ -38,8 +38,24 @@ curl -LsSf https://astral.sh/uv/install.sh | sh  # Linux/Mac
 
 ### 1. Levantar el servidor
 
+**Con pip (estándar):**
+
 ```bash
 python -m src.packet_tracer_mcp
+```
+
+**Con uv (desde el entorno virtual):**
+
+```bash
+# Activar el entorno virtual
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate  # Windows
+python -m src.packet_tracer_mcp
+```
+
+O directamente con uv run:
+```bash
+uv run python -m src.packet_tracer_mcp
 ```
 
 Esto inicia:

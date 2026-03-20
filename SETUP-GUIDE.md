@@ -50,10 +50,10 @@ PTBuilder es la extension que permite ejecutar comandos JavaScript en Packet Tra
 2. Ve a **Extensions > Scripting > Configure PT Script Modules**
 3. Click en **Add...**
 4. Navega a `<ruta/al/proyecto>/PTBuilder/Builder.pts` y abrelo
-5. Selecciona Builder en la lista y dale **Start**
+5. Selecciona MCP-BUILDER en la lista y dale **Start**
 
 ## 3. Configurar el Bridge (una sola vez)
-
+(no necesario)
 El bridge permite que el MCP server envie comandos en tiempo real a Packet Tracer. Hay que agregar el polling directamente en PTBuilder:
 
 1. En Packet Tracer, ve a **Extensions > Scripting > Configure PT Script Modules**
@@ -64,17 +64,28 @@ El bridge permite que el MCP server envie comandos en tiempo real a Packet Trace
 
 ```javascript
 // MCP Bridge: consulta periodicamente el backend para ejecutar codigo
-setInterval(() => {
-    const x = new XMLHttpRequest();
-    x.open('GET', 'http://127.0.0.1:54321/next', true);
-    x.timeout = 2000;
-    x.onload = function () {
+setInterval(function() {
+    var x = new XMLHttpRequest();
+    x.open("GET", "http://127.0.0.1:54321/next", true);
+    x.timeout = 1000;
+
+    x.onload = function() {
         if (x.status === 200 && x.responseText) {
-            $se('runCode', x.responseText);
+            var cmd = x.responseText;
+            var preview = cmd.substring(0, 120);
+            log("Received from MCP: " + preview + (cmd.length > 120 ? "..." : ""), "recv");
+
+            try {
+                $se("runCode", cmd);
+                state.commandCount++;
+                log("Command executed successfully", "ok");
+            } catch(e) {
+                log("Command execution failed: " + e.message, "err");
+            }
         }
     };
-    x.onerror = function () {};
-    x.ontimeout = function () {};
+
+    x.onerror = x.ontimeout = function() {};
     x.send();
 }, 500);
 ```
@@ -147,9 +158,24 @@ Cada vez que quieras usar el sistema:
 
 Abre una terminal y ejecuta:
 
+**Con pip (estándar):**
+
 ```bash
-cd ruta/al/proyecto
 python -m src.packet_tracer_mcp
+```
+
+**Con uv (desde el entorno virtual):**
+
+```bash
+# Activar el entorno virtual
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate  # Windows
+python -m src.packet_tracer_mcp
+```
+
+O directamente con uv run:
+```bash
+uv run python -m src.packet_tracer_mcp
 ```
 
 Deberia mostrar:
@@ -164,12 +190,14 @@ Para debug: `PT_MCP_LOG_LEVEL=DEBUG python -m src.packet_tracer_mcp`
 ### Paso 2 - Preparar Packet Tracer
 
 1. Abre Packet Tracer
-2. Verifica que Builder este en **Start** (Extensions > Scripting > Configure PT Script Modules)
+2. Verifica que MCP-BUILDER este en **Start** (Extensions > Scripting > Configure PT Script Modules)
 3. Abre **Extensions > Builder Code Editor**
 4. Pega el siguiente bootstrap script en el Code Editor y dale **Run**:
 
 ```javascript
-/* PT-MCP Bridge */ window.webview.evaluateJavaScriptAsync("setInterval(function(){var x=new XMLHttpRequest();x.open('GET','http://127.0.0.1:54321/next',true);x.onload=function(){if(x.status===200&&x.responseText){$se('runCode',x.responseText)}};x.onerror=function(){};x.send()},500)");
+/* PT-MCP Bridge */ window.webview.evaluateJavaScriptAsync("setInterval(function(){var x=new
+  XMLHttpRequest();x.open('GET','http://127.0.0.1:54321/next',true);x.onload=function(){if(x.status===
+  200&&x.responseText){$se('runCode',x.responseText)}};x.onerror=function(){};x.send()},500)");
 ```
 
 Esto inicia el polling que conecta Packet Tracer con el bridge HTTP. Mientras el Code Editor este abierto, PT escuchara comandos del MCP server cada 500ms.
