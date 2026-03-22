@@ -8,4 +8,4 @@ build/
 data/test_*
 projects/
 .claude/
-/src/__pycache__
+no
