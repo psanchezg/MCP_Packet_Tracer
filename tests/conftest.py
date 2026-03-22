@@ -1,9 +1,9 @@
 """Shared test fixtures."""
 import pytest
-from src.packet_tracer_mcp.domain.models.requests import TopologyRequest
-from src.packet_tracer_mcp.domain.models.plans import TopologyPlan, DevicePlan, LinkPlan
-from src.packet_tracer_mcp.domain.services.orchestrator import plan_from_request
-from src.packet_tracer_mcp.shared.enums import RoutingProtocol, TopologyTemplate
+from packet_tracer_mcp.domain.models.requests import TopologyRequest
+from packet_tracer_mcp.domain.models.plans import TopologyPlan, DevicePlan, LinkPlan
+from packet_tracer_mcp.domain.services.orchestrator import plan_from_request
+from packet_tracer_mcp.shared.enums import RoutingProtocol, TopologyTemplate
 
 
 @pytest.fixture

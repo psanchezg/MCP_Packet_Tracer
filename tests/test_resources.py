@@ -1,10 +1,10 @@
 """Tests for MCP resource data validity."""
 
-from src.packet_tracer_mcp.infrastructure.catalog.aliases import MODEL_ALIASES
-from src.packet_tracer_mcp.infrastructure.catalog.cables import CABLE_TYPES
-from src.packet_tracer_mcp.infrastructure.catalog.devices import ALL_MODELS
-from src.packet_tracer_mcp.infrastructure.catalog.templates import list_templates
-from src.packet_tracer_mcp.shared.constants import CAPABILITIES
+from packet_tracer_mcp.infrastructure.catalog.aliases import MODEL_ALIASES
+from packet_tracer_mcp.infrastructure.catalog.cables import CABLE_TYPES
+from packet_tracer_mcp.infrastructure.catalog.devices import ALL_MODELS
+from packet_tracer_mcp.infrastructure.catalog.templates import list_templates
+from packet_tracer_mcp.shared.constants import CAPABILITIES
 
 
 class TestDeviceCatalog:

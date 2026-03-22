@@ -1,5 +1,5 @@
 """Tests for _extract_ptbuilder_calls -- the JS statement parser."""
-from src.packet_tracer_mcp.adapters.mcp.tools._bridge_helpers import (
+from packet_tracer_mcp.adapters.mcp.tools._bridge_helpers import (
     _extract_ptbuilder_calls,
 )
 

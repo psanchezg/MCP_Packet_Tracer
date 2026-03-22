@@ -1,7 +1,7 @@
 """Tests for project persistence (save/load)."""
 import json
 import pytest
-from src.packet_tracer_mcp.infrastructure.persistence.project_repository import ProjectRepository
+from packet_tracer_mcp.infrastructure.persistence.project_repository import ProjectRepository
 
 
 class TestProjectRepository:

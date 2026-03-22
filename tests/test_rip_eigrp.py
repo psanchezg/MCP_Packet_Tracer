@@ -1,6 +1,6 @@
 """Tests for RIP and EIGRP routing protocol support."""
-from src.packet_tracer_mcp.domain.services.orchestrator import plan_from_request
-from src.packet_tracer_mcp.infrastructure.generator.cli_config_generator import generate_all_configs
+from packet_tracer_mcp.domain.services.orchestrator import plan_from_request
+from packet_tracer_mcp.infrastructure.generator.cli_config_generator import generate_all_configs
 
 
 class TestRIPRouting:
@@ -67,8 +67,8 @@ class TestEIGRPRouting:
                 assert "wildcard" in net
 
     def test_eigrp_custom_as(self):
-        from src.packet_tracer_mcp.domain.models.requests import TopologyRequest
-        from src.packet_tracer_mcp.shared.enums import RoutingProtocol
+        from packet_tracer_mcp.domain.models.requests import TopologyRequest
+        from packet_tracer_mcp.shared.enums import RoutingProtocol
         request = TopologyRequest(routers=2, pcs_per_lan=2, routing=RoutingProtocol.EIGRP, eigrp_as=200)
         plan, _ = plan_from_request(request)
         for cfg in plan.eigrp_configs:

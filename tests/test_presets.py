@@ -1,11 +1,11 @@
 """Tests for scenario presets."""
 import pytest
-from src.packet_tracer_mcp.domain.services.presets import (
+from packet_tracer_mcp.domain.services.presets import (
     list_presets,
     build_preset_request,
     PRESET_CATALOG,
 )
-from src.packet_tracer_mcp.domain.services.orchestrator import plan_from_request
+from packet_tracer_mcp.domain.services.orchestrator import plan_from_request
 
 
 class TestPresetListing:

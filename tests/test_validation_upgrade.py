@@ -1,14 +1,14 @@
 """Tests for upgraded validation layer and bridge helpers."""
 import json
 import pytest
-from src.packet_tracer_mcp.domain.models.plans import (
+from packet_tracer_mcp.domain.models.plans import (
     TopologyPlan, DevicePlan, LinkPlan, OSPFConfig,
 )
-from src.packet_tracer_mcp.domain.services.topology_analyzer import (
+from packet_tracer_mcp.domain.services.topology_analyzer import (
     validate_config_lines,
     validate_topology_deep,
 )
-from src.packet_tracer_mcp.adapters.mcp.tools._bridge_helpers import (
+from packet_tracer_mcp.adapters.mcp.tools._bridge_helpers import (
     record_command,
     pop_last_command,
     clear_command_history,
@@ -121,7 +121,7 @@ class TestBridgeCommandHistory:
 
 class TestPlanPersistence:
     def test_save_and_load(self, basic_plan, tmp_path, monkeypatch):
-        import src.packet_tracer_mcp.adapters.mcp.tools._bridge_helpers as bh
+        import packet_tracer_mcp.adapters.mcp.tools._bridge_helpers as bh
         persist_path = tmp_path / "test_plan.json"
         monkeypatch.setattr(bh, "_PLAN_PERSIST_PATH", persist_path)
 
@@ -132,6 +132,6 @@ class TestPlanPersistence:
         assert json.loads(loaded)["devices"] is not None
 
     def test_load_nonexistent_returns_none(self, tmp_path, monkeypatch):
-        import src.packet_tracer_mcp.adapters.mcp.tools._bridge_helpers as bh
+        import packet_tracer_mcp.adapters.mcp.tools._bridge_helpers as bh
         monkeypatch.setattr(bh, "_PLAN_PERSIST_PATH", tmp_path / "nope.json")
         assert load_last_plan() is None

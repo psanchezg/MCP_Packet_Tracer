@@ -1,6 +1,6 @@
 """Tests for Jinja2 configuration templates."""
 import pytest
-from src.packet_tracer_mcp.domain.services.template_engine import (
+from packet_tracer_mcp.domain.services.template_engine import (
     list_available_templates,
     render_template,
 )

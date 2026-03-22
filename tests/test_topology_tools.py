@@ -1,17 +1,17 @@
 """Tests for topology intelligence engine."""
 import json
 import pytest
-from src.packet_tracer_mcp.domain.services.topology_analyzer import (
+from packet_tracer_mcp.domain.services.topology_analyzer import (
     analyze_topology,
     suggest_improvements,
     calculate_addressing,
     validate_config_lines,
     validate_topology_deep,
 )
-from src.packet_tracer_mcp.domain.models.plans import TopologyPlan, DevicePlan, LinkPlan
-from src.packet_tracer_mcp.domain.services.orchestrator import plan_from_request
-from src.packet_tracer_mcp.domain.models.requests import TopologyRequest
-from src.packet_tracer_mcp.shared.enums import RoutingProtocol
+from packet_tracer_mcp.domain.models.plans import TopologyPlan, DevicePlan, LinkPlan
+from packet_tracer_mcp.domain.services.orchestrator import plan_from_request
+from packet_tracer_mcp.domain.models.requests import TopologyRequest
+from packet_tracer_mcp.shared.enums import RoutingProtocol
 
 
 class TestAnalyzeTopology:
